@@ -21,27 +21,16 @@ class Solution:
 
 
         l = 0
-        output = 0
+        res = 0
         charSet = set()
-        maxLength = 0
-        r = 0
-        while r < len(s):
-            if s[r] not in charSet:
-                charSet.add(s[r])
-            else:
-                while l < r and s[l] != s[r]:
-                    charSet.remove(s[l])
-                    l += 1
+        for r in range(len(s)):
+            while s[r] in charSet:
                 charSet.remove(s[l])
                 l += 1
-
-            if s[r] not in charSet:
-                charSet.add(s[r])
-            length = (r - l) + 1
-            maxLength = max(maxLength, length)
-            r += 1
-
-        return maxLength
+            
+            charSet.add(s[r])
+            res = max(res, (r-l)+1)
+        return res
             
 
 
