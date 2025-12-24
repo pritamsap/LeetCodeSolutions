@@ -4,23 +4,30 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+import heapq
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        # return the kth smallest value
+        # heap approach
+        heap = []
 
-        values = []
-        def dfs(root: Optional[TreeNode], values: List[int]):
-            if not root: return None
-
-            if root:
-                dfs(root.left, values)
-                values.append(root.val)
-                dfs(root.right, values)
+        def dfs(node):
+            if node:
+                heapq.heappush(heap, node.val)
+                dfs(node.left)
+                dfs(node.right)
         
-        dfs(root, values)
+        dfs(root)
+        i = 1
+        while i < k:
+            heapq.heappop(heap)
+            i +=1
+        
+        smallestVal = heapq.heappop(heap)
+        return smallestVal
 
-        return values[k - 1]
 
-            
+
                 
 
 
