@@ -6,21 +6,24 @@
 #         self.right = right
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        if not root: return True
-
+        # determine if a binary serach tree is valid or not 
+        # all values on left have to greater than node, all values on right great
         stack = []
-        stack.append((root, float('-inf'), float('inf')))
+        stack.append((root, float('-inf'), float('inf') ))
 
         while stack:
-            node, lower, upper = stack.pop()
-
-            if node and node.val > lower and node.val < upper:
-                if node.left: stack.append((node.left, lower, node.val))
-                if node.right: stack.append((node.right, node.val, upper))
+            node, left, right = stack.pop()
+            if node.val > left and node.val < right:             
+                # append left value:
+                if node.left:
+                    stack.append((node.left, left, node.val))
+                if node.right:
+                    stack.append((node.right, node.val, right))
             else:
-                return False       
-
+                return False
         return True
+
+        
             
                 
 
